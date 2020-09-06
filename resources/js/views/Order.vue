@@ -15,19 +15,86 @@
                     <img class="w-full h-full rounded shadow-lg" src="https://media.madetmere.dk/wp-content/uploads/2015/10/Mad-med-omtanke-4.jpg" alt="Lækker mad">
                 </div>
             </div>
-            <div class="px-6 py-4">
-                <keep-alive>
-                    <component v-bind:is="component" />
-                </keep-alive>
-            </div>
-            <div class="px-6 pt-4 pb-2">
-                <div>
-                    <button @click="navigatePrevious" v-show="!isFirst()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+            <form id="order" @submit.prevent="handleSubmit" class="w-full pt-6">
+                <div v-show="this.current === 1" class="md:flex md:items-center mb-6">
+                    <div class="md:w-2/3">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="adults">4 retters Nytårsmenu á 399,-</label>
+                    </div>
+                    <div class="md:w-1/3">
+                        <input
+                            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-20 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" 
+                            type="number" 
+                            name="adults" 
+                            id="adults" 
+                            v-model="adults"
+                            min="1"
+                            max="50"
+                            >
+                    </div>
+                </div>
+                <div v-show="this.current === 1" class="md:flex md:items-center mb-6">
+                    <div class="md:w-2/3">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="children">Børnelasagne á 69,-</label>
+                    </div>
+                    <div class="md:w-1/3">
+                        <input
+                            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-20 py-2 px-4 text-gray-700 leading-tight 
+                                    focus:outline-none focus:bg-white focus:border-purple-500" 
+                            type="number" 
+                            name="children" 
+                            id="children" 
+                            v-model="children"
+                            min="1"
+                            max="50"
+                            >
+
+                    </div>
+                </div>
+                <div v-show="this.current === 1" class="md:flex md:items-center mb-6">
+                    <div class="md:w-2/3">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="total">I alt: </label>
+                    </div>
+                    <div class="md:w-1/3">
+                        <input
+                            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-32 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" 
+                            type="number" 
+                            name="total" 
+                            id="total" 
+                            v-model="total"
+                            readonly
+                            >
+                    </div>
+                </div>
+
+                <div v-show="this.current === 2">
+                    <label for="name">Fulde Navn:</label>
+                    <input type="text" name="name" id="name" v-model="name">
+
+                    <label for="email">E-mail:</label>
+                    <input type="email" name="email" id="email" v-model="email">
+
+                    <label for="confirm_email">Gentag E-mail:</label>
+                    <input type="email" name="confirm_email" id="confirm_email" v-model="confirm_email">
+
+                    <label for="phone">Telefon nummer:</label>
+                    <input type="number" name="phone" id="phone" v-model="phone">        
+                </div>
+                <div class="px-6 pt-4 pb-4" v-show="isLast()">
+                    <div class="text-right">                       
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                            Bestil
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="px-6 pt-4 pb-2" v-show="!isLast()">
+                <div>                               
+                    <button @click="navigatePrevious" v-show="!isFirst() && !isLast()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                         Tilbage
                     </button>
-                    <button v-on:click="navigateNext" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                        {{ nextButtonText() }}
-                    </button>
+                    <button @click="navigateNext" v-show="!isLast()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                        Næste
+                    </button> 
                 </div>
             </div>
         </div>
@@ -53,7 +120,17 @@ export default {
 
     data (){
         return {
-            component: FirstStep
+            component: FirstStep,
+            last: 3,
+            current: 1,
+
+            adults: '2',
+            children: '0',
+            
+            name: '',
+            email: '',
+            confirm_email: '',
+            phone: '',
         }
     },
 
@@ -62,49 +139,28 @@ export default {
     },
 
     computed: { // Hent probs fra Store
-        
+        total: {
+            get() {
+                return (this.adults * 399) + (this.children * 69);
+            }
+        },
     },
 
     methods: {
-        swapComponent(){ //Bruges ikke
-            if (this.component === FirstStep) {
-                this.component = SecondStep;
-            } else {
-                this.component = FirstStep;
-            }
-        },
-        nextButtonText() {
-            if (this.component === FourthStep)
-            {
-                return 'Bestil';
-            }
-
-            return 'Næste';
-        },
         isFirst() {
             return this.component === FirstStep
         },
+        isLast() {
+            return this.current === this.last
+        },
         navigateNext() {
-            if (this.component === FirstStep) {
-                this.component = SecondStep;
-            } else if (this.component === SecondStep) {
-                this.component = ThirdStep;
-            } else if (this.component === ThirdStep) {
-                this.component = FourthStep;
-            }
-
+            this.current++;
         },
         navigatePrevious() { // ændre som Next
-            if (this.$route.name === 'order.payment') {
-                this.$router.push('/order/confirm');
-            } else if (this.$route.name === 'order.confirm') {
-                this.$router.push('/order/details');
-            } else if (this.$route.name === 'order.details') {
-                this.$router.push('/order');
-            }
+            this.current--;
         }, 
-        submit() { // Her skal betaling ske
-            alert('submitted to the backend!');
+        handleSubmit:function() {
+            alert('submitted to the backend!'+this.adults);
         },
     }
 }

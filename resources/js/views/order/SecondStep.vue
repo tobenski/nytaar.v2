@@ -1,11 +1,16 @@
 <template>
     <div>
-        2222222222222222
-        <label for="adults">4 retters Nytårsmenu á 399,-</label>
-        <input type="number" name="adults" id="adults">
+        <label for="name">Fulde Navn:</label>
+        <input type="text" name="name" id="name" v-model="name">
 
-        <label for="childs">Børne Lasagne á 69,-</label>
-        <input type="number" name="childs" id="childs">
+        <label for="email">E-mail:</label>
+        <input type="email" name="email" id="email" v-model="email">
+
+        <label for="confirm_email">Gentag E-mail:</label>
+        <input type="email" name="confirm_email" id="confirm_email" v-model="confirm_email">
+
+        <label for="phone">Telefon nummer:</label>
+        <input type="number" name="phone" id="phone" v-model="phone">        
     </div>  
 </template>
 
@@ -14,6 +19,15 @@ import { mapGetters } from 'vuex';
 
 export default {
     name: "SecondStep",
+
+    data() {
+        return {
+            name: '',
+            email: '',
+            confirm_email: '',
+            phone: '',
+        }
+    },
 
     computed: {
         ...mapGetters({

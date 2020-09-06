@@ -2089,6 +2089,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2104,56 +2171,45 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      component: _order_FirstStep__WEBPACK_IMPORTED_MODULE_1__["default"]
+      component: _order_FirstStep__WEBPACK_IMPORTED_MODULE_1__["default"],
+      last: 3,
+      current: 1,
+      adults: '2',
+      children: '0',
+      name: '',
+      email: '',
+      confirm_email: '',
+      phone: ''
     };
   },
   mounted: function mounted() {
     // Bruges ikke
     this.$store.dispatch('fetchAuthUser');
   },
-  computed: {// Hent probs fra Store
+  computed: {
+    // Hent probs fra Store
+    total: {
+      get: function get() {
+        return this.adults * 399 + this.children * 69;
+      }
+    }
   },
   methods: {
-    swapComponent: function swapComponent() {
-      //Bruges ikke
-      if (this.component === _order_FirstStep__WEBPACK_IMPORTED_MODULE_1__["default"]) {
-        this.component = _order_SecondStep__WEBPACK_IMPORTED_MODULE_2__["default"];
-      } else {
-        this.component = _order_FirstStep__WEBPACK_IMPORTED_MODULE_1__["default"];
-      }
-    },
-    nextButtonText: function nextButtonText() {
-      if (this.component === _order_FourthStep__WEBPACK_IMPORTED_MODULE_4__["default"]) {
-        return 'Bestil';
-      }
-
-      return 'Næste';
-    },
     isFirst: function isFirst() {
       return this.component === _order_FirstStep__WEBPACK_IMPORTED_MODULE_1__["default"];
     },
+    isLast: function isLast() {
+      return this.current === this.last;
+    },
     navigateNext: function navigateNext() {
-      if (this.component === _order_FirstStep__WEBPACK_IMPORTED_MODULE_1__["default"]) {
-        this.component = _order_SecondStep__WEBPACK_IMPORTED_MODULE_2__["default"];
-      } else if (this.component === _order_SecondStep__WEBPACK_IMPORTED_MODULE_2__["default"]) {
-        this.component = _order_ThirdStep__WEBPACK_IMPORTED_MODULE_3__["default"];
-      } else if (this.component === _order_ThirdStep__WEBPACK_IMPORTED_MODULE_3__["default"]) {
-        this.component = _order_FourthStep__WEBPACK_IMPORTED_MODULE_4__["default"];
-      }
+      this.current++;
     },
     navigatePrevious: function navigatePrevious() {
       // ændre som Next
-      if (this.$route.name === 'order.payment') {
-        this.$router.push('/order/confirm');
-      } else if (this.$route.name === 'order.confirm') {
-        this.$router.push('/order/details');
-      } else if (this.$route.name === 'order.details') {
-        this.$router.push('/order');
-      }
+      this.current--;
     },
-    submit: function submit() {
-      // Her skal betaling ske
-      alert('submitted to the backend!');
+    handleSubmit: function handleSubmit() {
+      alert('submitted to the backend!' + this.adults);
     }
   }
 });
@@ -2197,12 +2253,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _Navigation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Navigation */ "./resources/js/views/order/Navigation.vue");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2220,10 +2270,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     Navigation: _Navigation__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    children: 'children',
-    adults: 'adults'
-  }))
+  data: function data() {
+    return {
+      adults: '',
+      children: ''
+    };
+  }
+  /*
+      computed: {
+          ...mapGetters({
+              children: 'children',
+              adults: 'adults',
+          })
+      },
+      */
+
 });
 
 /***/ }),
@@ -2356,9 +2417,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SecondStep",
+  data: function data() {
+    return {
+      name: '',
+      email: '',
+      confirm_email: '',
+      phone: ''
+    };
+  },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     children: 'children',
     adults: 'adults'
@@ -38290,49 +38364,352 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c(
-            "div",
-            { staticClass: "px-6 py-4" },
-            [_c("keep-alive", [_c(_vm.component, { tag: "component" })], 1)],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "px-6 pt-4 pb-2" }, [
-            _c("div", [
+            "form",
+            {
+              staticClass: "w-full pt-6",
+              attrs: { id: "order" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.handleSubmit($event)
+                }
+              }
+            },
+            [
               _c(
-                "button",
+                "div",
                 {
                   directives: [
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: !_vm.isFirst(),
-                      expression: "!isFirst()"
+                      value: this.current === 1,
+                      expression: "this.current === 1"
                     }
                   ],
-                  staticClass:
-                    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full",
-                  on: { click: _vm.navigatePrevious }
+                  staticClass: "md:flex md:items-center mb-6"
                 },
-                [_vm._v("\n                    Tilbage\n                ")]
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "md:w-1/3" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.adults,
+                          expression: "adults"
+                        }
+                      ],
+                      staticClass:
+                        "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-20 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500",
+                      attrs: {
+                        type: "number",
+                        name: "adults",
+                        id: "adults",
+                        min: "1",
+                        max: "50"
+                      },
+                      domProps: { value: _vm.adults },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.adults = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]
               ),
               _vm._v(" "),
               _c(
-                "button",
+                "div",
                 {
-                  staticClass:
-                    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full",
-                  on: { click: _vm.navigateNext }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: this.current === 1,
+                      expression: "this.current === 1"
+                    }
+                  ],
+                  staticClass: "md:flex md:items-center mb-6"
                 },
                 [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(_vm.nextButtonText()) +
-                      "\n                "
-                  )
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "md:w-1/3" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.children,
+                          expression: "children"
+                        }
+                      ],
+                      staticClass:
+                        "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-20 py-2 px-4 text-gray-700 leading-tight \n                                focus:outline-none focus:bg-white focus:border-purple-500",
+                      attrs: {
+                        type: "number",
+                        name: "children",
+                        id: "children",
+                        min: "1",
+                        max: "50"
+                      },
+                      domProps: { value: _vm.children },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.children = $event.target.value
+                        }
+                      }
+                    })
+                  ])
                 ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: this.current === 1,
+                      expression: "this.current === 1"
+                    }
+                  ],
+                  staticClass: "md:flex md:items-center mb-6"
+                },
+                [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "md:w-1/3" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.total,
+                          expression: "total"
+                        }
+                      ],
+                      staticClass:
+                        "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-32 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500",
+                      attrs: {
+                        type: "number",
+                        name: "total",
+                        id: "total",
+                        readonly: ""
+                      },
+                      domProps: { value: _vm.total },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.total = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: this.current === 2,
+                      expression: "this.current === 2"
+                    }
+                  ]
+                },
+                [
+                  _c("label", { attrs: { for: "name" } }, [
+                    _vm._v("Fulde Navn:")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.name,
+                        expression: "name"
+                      }
+                    ],
+                    attrs: { type: "text", name: "name", id: "name" },
+                    domProps: { value: _vm.name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.name = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "email" } }, [_vm._v("E-mail:")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.email,
+                        expression: "email"
+                      }
+                    ],
+                    attrs: { type: "email", name: "email", id: "email" },
+                    domProps: { value: _vm.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.email = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "confirm_email" } }, [
+                    _vm._v("Gentag E-mail:")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.confirm_email,
+                        expression: "confirm_email"
+                      }
+                    ],
+                    attrs: {
+                      type: "email",
+                      name: "confirm_email",
+                      id: "confirm_email"
+                    },
+                    domProps: { value: _vm.confirm_email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.confirm_email = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "phone" } }, [
+                    _vm._v("Telefon nummer:")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.phone,
+                        expression: "phone"
+                      }
+                    ],
+                    attrs: { type: "number", name: "phone", id: "phone" },
+                    domProps: { value: _vm.phone },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.phone = $event.target.value
+                      }
+                    }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isLast(),
+                      expression: "isLast()"
+                    }
+                  ],
+                  staticClass: "px-6 pt-4 pb-4"
+                },
+                [_vm._m(4)]
               )
-            ])
-          ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.isLast(),
+                  expression: "!isLast()"
+                }
+              ],
+              staticClass: "px-6 pt-4 pb-2"
+            },
+            [
+              _c("div", [
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.isFirst() && !_vm.isLast(),
+                        expression: "!isFirst() && !isLast()"
+                      }
+                    ],
+                    staticClass:
+                      "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full",
+                    on: { click: _vm.navigatePrevious }
+                  },
+                  [_vm._v("\n                    Tilbage\n                ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.isLast(),
+                        expression: "!isLast()"
+                      }
+                    ],
+                    staticClass:
+                      "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full",
+                    on: { click: _vm.navigateNext }
+                  },
+                  [_vm._v("\n                    Næste\n                ")]
+                )
+              ])
+            ]
+          )
         ]
       )
     ]
@@ -38388,6 +38765,70 @@ var staticRenderFns = [
         })
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "md:w-2/3" }, [
+      _c(
+        "label",
+        {
+          staticClass:
+            "block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4",
+          attrs: { for: "adults" }
+        },
+        [_vm._v("4 retters Nytårsmenu á 399,-")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "md:w-2/3" }, [
+      _c(
+        "label",
+        {
+          staticClass:
+            "block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4",
+          attrs: { for: "children" }
+        },
+        [_vm._v("Børnelasagne á 69,-")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "md:w-2/3" }, [
+      _c(
+        "label",
+        {
+          staticClass:
+            "block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4",
+          attrs: { for: "total" }
+        },
+        [_vm._v("I alt: ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-right" }, [
+      _c(
+        "button",
+        {
+          staticClass:
+            "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("\n                        Bestil\n                    ")]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -38440,28 +38881,57 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("label", { attrs: { for: "adults" } }, [
+      _vm._v("4 retters Nytårsmenu á 399,-")
+    ]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.adults,
+          expression: "adults"
+        }
+      ],
+      attrs: { type: "number", name: "adults", id: "adults" },
+      domProps: { value: _vm.adults },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.adults = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c("label", { attrs: { for: "childs" } }, [_vm._v("Børne Lasagne á 69,-")]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.children,
+          expression: "children"
+        }
+      ],
+      attrs: { type: "number", name: "childs", id: "childs" },
+      domProps: { value: _vm.children },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.children = $event.target.value
+        }
+      }
+    })
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("label", { attrs: { for: "adults" } }, [
-        _vm._v("4 retters Nytårsmenu á 399,-")
-      ]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "number", name: "adults", id: "adults" } }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "childs" } }, [
-        _vm._v("Børne Lasagne á 69,-")
-      ]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "number", name: "childs", id: "childs" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38579,29 +39049,103 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("label", { attrs: { for: "name" } }, [_vm._v("Fulde Navn:")]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.name,
+          expression: "name"
+        }
+      ],
+      attrs: { type: "text", name: "name", id: "name" },
+      domProps: { value: _vm.name },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.name = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c("label", { attrs: { for: "email" } }, [_vm._v("E-mail:")]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.email,
+          expression: "email"
+        }
+      ],
+      attrs: { type: "email", name: "email", id: "email" },
+      domProps: { value: _vm.email },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.email = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c("label", { attrs: { for: "confirm_email" } }, [
+      _vm._v("Gentag E-mail:")
+    ]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.confirm_email,
+          expression: "confirm_email"
+        }
+      ],
+      attrs: { type: "email", name: "confirm_email", id: "confirm_email" },
+      domProps: { value: _vm.confirm_email },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.confirm_email = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c("label", { attrs: { for: "phone" } }, [_vm._v("Telefon nummer:")]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.phone,
+          expression: "phone"
+        }
+      ],
+      attrs: { type: "number", name: "phone", id: "phone" },
+      domProps: { value: _vm.phone },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.phone = $event.target.value
+        }
+      }
+    })
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _vm._v("\n    2222222222222222\n    "),
-      _c("label", { attrs: { for: "adults" } }, [
-        _vm._v("4 retters Nytårsmenu á 399,-")
-      ]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "number", name: "adults", id: "adults" } }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "childs" } }, [
-        _vm._v("Børne Lasagne á 69,-")
-      ]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "number", name: "childs", id: "childs" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
